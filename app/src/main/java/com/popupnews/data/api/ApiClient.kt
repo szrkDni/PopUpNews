@@ -9,7 +9,6 @@ class ApiClient {
 
         private const val BASE_URL = "https://newsapi.org/v2/"
 
-        const val API_KEY = "0479b33875c14a4c8f0c3bd7d03db022"
 
         private val retrofit by lazy {
             Retrofit.Builder()

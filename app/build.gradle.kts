@@ -1,6 +1,9 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.0.21"
+    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
+    id("kotlin-parcelize")
 }
 
 android {
@@ -50,13 +53,14 @@ android {
         buildConfig = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.5.1"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
 
 }
 
@@ -83,6 +87,8 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    //test
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
+    //navigation
+    implementation("androidx.navigation:navigation-compose:2.8.6")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
+
 }

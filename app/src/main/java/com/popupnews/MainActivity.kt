@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import com.example.popupnews.R
 import androidx.lifecycle.lifecycleScope
 import com.popupnews.data.api.ApiClient
+import com.popupnews.ui.layouts.MainNavigation
 import com.popupnews.ui.theme.PopUpNewsTheme
 import com.popupnews.utils.TopicItem
 import kotlinx.coroutines.launch
@@ -61,22 +62,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             PopUpNewsTheme {
 
-                Surface(
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    GenerateMainLayout()
-                }
+                MainNavigation()
+
             }
         }
 
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    PopUpNewsTheme {
-        GenerateMainLayout()
     }
 }
 
@@ -91,89 +81,3 @@ val topics : MutableList<TopicItem> = mutableListOf(
     TopicItem("Science",R.drawable.science),
     TopicItem("Technology",R.drawable.technology)
 )
-
-
-@Composable
-fun GenerateMainLayout(){
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        PageTitle(title = "Choose Topic")
-
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-
-        )
-        {
-            items(topics.size){i ->
-                CreateTopicCards(topicItem = topics[i])
-            }
-        }
-    }
-
-
-}
-
-
-@Composable
-fun CreateTopicCards(topicItem : TopicItem)
-{
-    OutlinedCard(
-        border = BorderStroke(2.dp, Color.Black),
-        modifier = Modifier
-            .size(width = 100.dp, height = 200.dp)
-            .clickable {
-                //implement the api function
-                Log.i("clickLog", "Clicked on ${topicItem.topic}")
-            }
-    ) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Icon(
-                    painter = painterResource(id = topicItem.imageRes),
-                    contentDescription = topicItem.topic,
-                    modifier = Modifier.size(50.dp)
-                )
-                Text(
-                    text = topicItem.topic,
-                    textAlign = TextAlign.Center,
-                    fontSize = 20.sp,
-                    fontFamily = FontFamily.Monospace,
-                    modifier = Modifier.padding(0.dp,20.dp,0.dp,0.dp),
-                    fontWeight = FontWeight.ExtraBold
-                )
-            }
-        }
-
-    }
-}
-
-@Composable
-fun PageTitle(title : String)
-{
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    ) {
-        Text(
-            text = title,
-            textAlign = TextAlign.Center,
-            fontSize = 30.sp,
-            modifier = Modifier
-                .fillMaxWidth(),
-            fontFamily = FontFamily.Serif
-
-        )
-    }
-
-}

@@ -13,12 +13,12 @@ class NewsService : ComponentActivity() {
 
         var articles :MutableList<Article>? = null
 
-        suspend fun call()
+        suspend fun callTopHeadlines(category: String)
         {
 
             //Throws IllegalStateException
             val articles = checkNotNull(
-                newsRepository.topHeadlines()
+                newsRepository.topHeadlines(category = category)
             )
 
             {"API call success, but list is null"}
@@ -27,9 +27,13 @@ class NewsService : ComponentActivity() {
             //Throws IllegalStateException
             check(articles.isNotEmpty()) {"API call success, but list is empty"}
 
-
             this.articles = articles
-    }
+        }
+
+        suspend fun callEverything()
+        {
+            TODO("Implement")
+        }
 
     }
 

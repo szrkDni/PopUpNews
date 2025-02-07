@@ -7,5 +7,7 @@ import kotlinx.serialization.Serializable
 @Parcelize
 @Serializable
 data class TopicItem(
-    val topic : String, val imageRes : Int
+    val topic : String,
+    val category: String,
+    val imageRes : Int
 ):Parcelable

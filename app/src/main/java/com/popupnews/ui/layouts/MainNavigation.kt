@@ -5,7 +5,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.popupnews.topics
 
 @Composable
 fun MainNavigation() {
@@ -15,8 +14,8 @@ fun MainNavigation() {
     {
         composable<Destinations.Topic> {
             TopicScreen(
-                onClick = { topic ->
-                    navController.navigate(Destinations.InfiniteSwipe(topic))
+                onClick = { category ->
+                    navController.navigate(Destinations.InfiniteSwipe(category))
                 }
             )
         }
@@ -25,7 +24,7 @@ fun MainNavigation() {
 
             val args = it.toRoute<Destinations.InfiniteSwipe>()
 
-            InfSwipeScreen(args.topic) {
+            InfSwipeScreen(args.category) {
                 navController.navigate(Destinations.Topic)
             }
         }

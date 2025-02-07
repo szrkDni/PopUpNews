@@ -47,18 +47,6 @@ class MainActivity : ComponentActivity() {
         Log.i("MainActivity", "onCreate success")
         Log.i("MainActivity", "my API_KEY is: ${ApiClient.API_KEY}")
 
-        //call api for news
-        lifecycleScope.launch {
-            try { /*NewsService.call()
-            NewsService.articles?.forEach{
-                Log.i("MainActivity", it.title)*/
-                println("h")
-            }
-            catch (e: IllegalStateException)  { Log.e("MainActivity", "IllegalStateException caught with the message: ${e.message}") }
-            catch (e: Exception)              { Log.e("MainActivity", "General Exception caught with the message: ${e.message}") }
-
-        }
-
         setContent {
             PopUpNewsTheme {
 
@@ -72,12 +60,13 @@ class MainActivity : ComponentActivity() {
 
 //this list contains all the topics with their utils
 val topics : MutableList<TopicItem> = mutableListOf(
-    TopicItem("General", R.drawable.general),
-    TopicItem("All Topics",R.drawable.alltopic),
-    TopicItem("Business",R.drawable.business),
-    TopicItem("Pop Culture",R.drawable.entertainment),
-    TopicItem("Sport",R.drawable.sport1),
-    TopicItem("Health",R.drawable.health),
-    TopicItem("Science",R.drawable.science),
-    TopicItem("Technology",R.drawable.technology)
+    TopicItem("General", "general",R.drawable.general),
+    TopicItem("All Topics","",R.drawable.alltopic),
+    TopicItem("Business","business",R.drawable.business),
+    TopicItem("Pop Culture","entertainment",R.drawable.entertainment),
+    TopicItem("Sport","sports",R.drawable.sport1),
+    TopicItem("Health","health",R.drawable.health),
+    TopicItem("Science","science",R.drawable.science),
+    TopicItem("Technology","technology",R.drawable.technology)
+
 )

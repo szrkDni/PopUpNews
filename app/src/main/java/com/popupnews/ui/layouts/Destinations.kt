@@ -9,6 +9,6 @@ sealed class Destinations {
     data object Topic : Destinations()
 
     @Serializable
-    data class InfiniteSwipe(val topic : String) : Destinations()
+    data class InfiniteSwipe(val category : String) : Destinations()
 
 }

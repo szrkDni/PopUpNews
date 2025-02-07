@@ -61,8 +61,8 @@ fun CreateTopicCards(topicItem : TopicItem, onClick : (String) -> Unit)
         modifier = Modifier
             .size(width = 100.dp, height = 200.dp)
             .clickable {
-                onClick.invoke(topicItem.topic)
-                Log.i("clickLog", "Clicked on ${topicItem.topic}")
+                onClick.invoke(topicItem.category)
+                Log.i("clickLog", "Clicked on ${topicItem.category}")
             }
     ) {
         Box(

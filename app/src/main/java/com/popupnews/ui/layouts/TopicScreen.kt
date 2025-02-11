@@ -21,12 +21,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.popupnews.topics
+import com.popupnews.ui.theme.MyTypography
 import com.popupnews.utils.TopicItem
 
 @Composable
@@ -36,7 +39,7 @@ fun TopicScreen(onClick : (String) -> Unit) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        PageTitle(title = "Choose Topic")
+        PageTitle(title = "Choose Topic", fontSize = 35.sp)
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
@@ -94,7 +97,10 @@ fun CreateTopicCards(topicItem : TopicItem, onClick : (String) -> Unit)
 
 
 @Composable
-fun PageTitle(title : String)
+fun PageTitle(
+    title : String,
+    fontSize: TextUnit,
+    textStyle: TextStyle = MyTypography.titleLarge)
 {
     Row(
         modifier = Modifier
@@ -103,12 +109,10 @@ fun PageTitle(title : String)
     ) {
         Text(
             text = title,
-            textAlign = TextAlign.Center,
-            fontSize = 30.sp,
+            fontSize = fontSize, //35.sp
             modifier = Modifier
                 .fillMaxWidth(),
-            fontFamily = FontFamily.Serif
-
+            style = textStyle
         )
     }
 }

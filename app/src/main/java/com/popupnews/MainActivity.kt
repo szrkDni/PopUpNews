@@ -44,9 +44,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Log.i("MainActivity", "onCreate success")
-        Log.i("MainActivity", "my API_KEY is: ${ApiClient.API_KEY}")
-
         setContent {
             PopUpNewsTheme {
 

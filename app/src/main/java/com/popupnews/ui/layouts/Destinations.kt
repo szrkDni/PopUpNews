@@ -11,4 +11,7 @@ sealed class Destinations {
     @Serializable
     data class InfiniteSwipe(val category : String) : Destinations()
 
+    @Serializable
+    data object ReadArticle : Destinations()
+
 }

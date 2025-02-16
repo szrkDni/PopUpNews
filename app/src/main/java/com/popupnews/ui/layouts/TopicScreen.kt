@@ -44,8 +44,9 @@ fun TopicScreen(onClick : (String) -> Unit) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             verticalArrangement = Arrangement.spacedBy(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier
+                .padding(0.dp,20.dp,0.dp,0.dp)
         )
         {
             items(topics.size){ i ->

@@ -1,16 +1,13 @@
 package com.popupnews.ui.layouts
 
 
-import androidx.compose.animation.AnimatedVisibility
+import android.util.Log
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -32,40 +29,35 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.popupnews.R
 import com.popupnews.data.local.NewsViewModel
+import com.popupnews.data.model.Article
+import com.popupnews.data.model.ReadableArticle
 import com.popupnews.ui.theme.MyTypography
 import com.popupnews.utils.LocalNewsViewModel
 import com.popupnews.utils.formatDescription
 import com.popupnews.utils.formatTitle
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.Locale
 import kotlin.math.roundToInt
 
 const val boxWidth = 270
 const val boxHeight = 360
 
 @Composable
-fun InfSwipeScreen(category: String, onArticleClick : () -> Unit, onBackClick: () -> Unit) {
+fun InfSwipeScreen(category: String, onArticleClick : (ReadableArticle) -> Unit, onBackClick: () -> Unit) {
 
     val newsViewModel :NewsViewModel = viewModel()
 
@@ -75,19 +67,19 @@ fun InfSwipeScreen(category: String, onArticleClick : () -> Unit, onBackClick: (
 
     Row(modifier = Modifier
         .fillMaxWidth()
-        .padding(0.dp,10.dp,0.dp,0.dp),
+        .padding(0.dp, 10.dp, 0.dp, 0.dp),
         verticalAlignment = Alignment.CenterVertically
     ){
-        Icon(
+        /*Icon(
             painter = painterResource(R.drawable.backarrow),
             contentDescription = "Navigate back",
             tint = Color.White, //modify to be compatible with different themes
             modifier = Modifier
                 .size(30.dp)
                 .clickable { onBackClick.invoke() }
-        )
+        )*/
 
-        PageTitle(title = category, fontSize = 35.sp)
+        PageTitle(title = category.replaceFirstChar { it-32 }, fontSize = 35.sp)
     }
 
 
@@ -166,7 +158,7 @@ fun ArticleItemCardContent(newsViewModel: NewsViewModel) {
 
 
 @Composable
-fun SwipeableCardStack(onClick: () -> Unit){
+fun SwipeableCardStack(onClick: (ReadableArticle) -> Unit){
 
     val viewModel = LocalNewsViewModel.current
 
@@ -188,13 +180,13 @@ fun SwipeableCardStack(onClick: () -> Unit){
 @Composable
 fun DisplayStackedSwipeableCards(
     viewModel: NewsViewModel,
-    onClick: () -> Unit
+    onClick: (ReadableArticle) -> Unit
 )
 {
-    viewModel.articles.forEachIndexed { index, cardText ->
+    viewModel.articles.forEachIndexed { index, cardItem ->
         if (index == viewModel.articles.size-1) {
             SwipeableCard(
-                cardText = cardText.formatTitle(),
+                cardItem = cardItem,
                 onClick = onClick
             )
         }
@@ -248,21 +240,25 @@ fun AnimatedSpecifyModifier(depth: Int): Modifier {
 
 @Composable
 fun SwipeableCard(
-    cardText: String,
-    onClick: () -> Unit) {
+    cardItem: Article,
+    onClick: (ReadableArticle) -> Unit
+) {
+    val readable = ReadableArticle(cardItem.author,cardItem.content,cardItem.publishedAt,cardItem.title)
+    Log.i("readable", "SwipeableCard: readable létrehozva ${readable}")
 
     SwipeLogic(
         swipeThreshold = 200f,
-        animationDurationMillis = 300,
-        onClick = onClick,
+        animationDurationMillis = 300
     ){
         OutlinedCard(
-            border = BorderStroke(4.dp, Color.Black)
+            border = BorderStroke(4.dp, Color.Black),
+            modifier = Modifier.clickable { onClick.invoke(readable) }
         ) {
+            Log.i("readable", "SwipeableCard: readable átadva")
             CenterBox(
                 modifier = Modifier.fillMaxSize()
             ){
-                Text(text = cardText,
+                Text(text = cardItem.formatTitle(),
                     style = MyTypography.titleLarge,
                     modifier = Modifier.padding(5.dp, 5.dp))
             }
@@ -274,7 +270,6 @@ fun SwipeableCard(
 fun SwipeLogic(
     swipeThreshold: Float,
     animationDurationMillis: Int,
-    onClick: () -> Unit,
     content: @Composable () -> Unit
     )
 {
@@ -328,7 +323,6 @@ fun SwipeLogic(
                     }
                 )
             }
-            .clickable { onClick.invoke() }
             .size(boxWidth.dp, boxHeight.dp)
     )
     {content.invoke()}

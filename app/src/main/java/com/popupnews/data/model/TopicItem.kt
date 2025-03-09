@@ -1,4 +1,4 @@
-package com.popupnews.utils
+package com.popupnews.data.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

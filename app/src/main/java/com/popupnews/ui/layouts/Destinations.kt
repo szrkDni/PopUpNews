@@ -1,6 +1,6 @@
 package com.popupnews.ui.layouts
 
-import com.popupnews.utils.TopicItem
+import com.popupnews.data.model.ReadableArticle
 import kotlinx.serialization.Serializable
 
 sealed class Destinations {
@@ -12,6 +12,6 @@ sealed class Destinations {
     data class InfiniteSwipe(val category : String) : Destinations()
 
     @Serializable
-    data object ReadArticle : Destinations()
+    data class ReadArticle(val readable: ReadableArticle) : Destinations()
 
 }

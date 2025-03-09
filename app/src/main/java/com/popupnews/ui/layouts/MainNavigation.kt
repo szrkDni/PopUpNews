@@ -6,8 +6,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.popupnews.data.local.NewsViewModel
-import com.popupnews.ui.ReadArticleScreen
+import com.popupnews.data.ReadableArticleType
+import com.popupnews.data.model.Article
+import com.popupnews.data.model.ReadableArticle
+import kotlin.reflect.typeOf
 
 @Composable
 fun MainNavigation() {
@@ -32,15 +34,30 @@ fun MainNavigation() {
             InfSwipeScreen(
                 category = args.category,
                 onBackClick = { navController.navigate(Destinations.Topic) },
-                onArticleClick = { navController.navigate(Destinations.ReadArticle) }
+                onArticleClick = { readableArticle ->
+                    Log.i("readable", "MainNavigation: readable küldés $readableArticle")
+                    navController.navigate(Destinations.ReadArticle(readable = readableArticle))
+                }
+
             )
 
         }
 
-        composable<Destinations.ReadArticle> {
-            ReadArticleScreen(
-                onBackClick = { navController.navigate(Destinations.Topic)}
+        composable<Destinations.ReadArticle>(
+
+            typeMap = mapOf(
+                typeOf<ReadableArticle>() to ReadableArticleType
             )
+        ) {
+            Log.i("readable", "MainNavigation: readable fogadás...")
+            val args = it.toRoute<Destinations.ReadArticle>()
+            Log.i("readable", "MainNavigation: readable fogadva ${args.readable}")
+
+            ReadArticleScreen(
+                onBackClick = { navController.navigate(Destinations.Topic) },
+                readable = args.readable
+            )
+
         }
 
 

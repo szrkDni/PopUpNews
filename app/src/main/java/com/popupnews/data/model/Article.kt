@@ -1,5 +1,9 @@
 package com.popupnews.data.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
+
 data class Article(
     val author: String,
     val content: String,

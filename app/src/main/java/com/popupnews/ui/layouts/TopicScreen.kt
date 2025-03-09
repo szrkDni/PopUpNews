@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.popupnews.topics
 import com.popupnews.ui.theme.MyTypography
-import com.popupnews.utils.TopicItem
+import com.popupnews.data.model.TopicItem
 
 @Composable
 fun TopicScreen(onClick : (String) -> Unit) {
@@ -113,7 +113,8 @@ fun PageTitle(
             fontSize = fontSize, //35.sp
             modifier = Modifier
                 .fillMaxWidth(),
-            style = textStyle
+            style = textStyle,
+            color = Color.White
         )
     }
 }

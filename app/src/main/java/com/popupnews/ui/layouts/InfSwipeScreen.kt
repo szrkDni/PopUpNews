@@ -57,7 +57,7 @@ const val boxWidth = 270
 const val boxHeight = 360
 
 @Composable
-fun InfSwipeScreen(category: String, onArticleClick : (ReadableArticle) -> Unit, onBackClick: () -> Unit) {
+fun InfSwipeScreen(category: String, onArticleClick : (ReadableArticle, String) -> Unit, onBackClick: () -> Unit) {
 
     val newsViewModel :NewsViewModel = viewModel()
 
@@ -158,7 +158,7 @@ fun ArticleItemCardContent(newsViewModel: NewsViewModel) {
 
 
 @Composable
-fun SwipeableCardStack(onClick: (ReadableArticle) -> Unit){
+fun SwipeableCardStack(onClick: (ReadableArticle, String) -> Unit){
 
     val viewModel = LocalNewsViewModel.current
 
@@ -180,7 +180,7 @@ fun SwipeableCardStack(onClick: (ReadableArticle) -> Unit){
 @Composable
 fun DisplayStackedSwipeableCards(
     viewModel: NewsViewModel,
-    onClick: (ReadableArticle) -> Unit
+    onClick: (ReadableArticle, String) -> Unit
 )
 {
     viewModel.articles.forEachIndexed { index, cardItem ->
@@ -241,10 +241,10 @@ fun AnimatedSpecifyModifier(depth: Int): Modifier {
 @Composable
 fun SwipeableCard(
     cardItem: Article,
-    onClick: (ReadableArticle) -> Unit
+    onClick: (ReadableArticle, String) -> Unit
 ) {
     val readable = ReadableArticle(cardItem.author,cardItem.content,cardItem.publishedAt,cardItem.title)
-    Log.i("readable", "SwipeableCard: readable létrehozva ${readable}")
+
 
     SwipeLogic(
         swipeThreshold = 200f,
@@ -252,9 +252,9 @@ fun SwipeableCard(
     ){
         OutlinedCard(
             border = BorderStroke(4.dp, Color.Black),
-            modifier = Modifier.clickable { onClick.invoke(readable) }
+            modifier = Modifier.clickable { onClick.invoke(readable, cardItem.urlToImage) }
         ) {
-            Log.i("readable", "SwipeableCard: readable átadva")
+
             CenterBox(
                 modifier = Modifier.fillMaxSize()
             ){

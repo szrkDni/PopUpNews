@@ -12,6 +12,6 @@ sealed class Destinations {
     data class InfiniteSwipe(val category : String) : Destinations()
 
     @Serializable
-    data class ReadArticle(val readable: ReadableArticle) : Destinations()
+    data class ReadArticle(val readable: ReadableArticle, val urlToImg:  String) : Destinations()
 
 }

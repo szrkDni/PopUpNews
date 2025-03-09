@@ -34,9 +34,9 @@ fun MainNavigation() {
             InfSwipeScreen(
                 category = args.category,
                 onBackClick = { navController.navigate(Destinations.Topic) },
-                onArticleClick = { readableArticle ->
-                    Log.i("readable", "MainNavigation: readable küldés $readableArticle")
-                    navController.navigate(Destinations.ReadArticle(readable = readableArticle))
+                onArticleClick = { readableArticle, urlToImg ->
+
+                    navController.navigate(Destinations.ReadArticle(readable = readableArticle, urlToImg = urlToImg))
                 }
 
             )
@@ -49,13 +49,14 @@ fun MainNavigation() {
                 typeOf<ReadableArticle>() to ReadableArticleType
             )
         ) {
-            Log.i("readable", "MainNavigation: readable fogadás...")
+
             val args = it.toRoute<Destinations.ReadArticle>()
-            Log.i("readable", "MainNavigation: readable fogadva ${args.readable}")
+
 
             ReadArticleScreen(
                 onBackClick = { navController.navigate(Destinations.Topic) },
-                readable = args.readable
+                readable = args.readable,
+                urlToImg = args.urlToImg
             )
 
         }

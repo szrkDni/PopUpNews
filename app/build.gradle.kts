@@ -105,6 +105,9 @@ dependencies {
     //http logging
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
 
+    //coil
+    implementation("io.coil-kt:coil-compose:2.0.0-rc01")
+
 
 
 }

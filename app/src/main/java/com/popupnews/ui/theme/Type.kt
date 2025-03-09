@@ -40,6 +40,14 @@ val MyTypography = Typography(
         lineHeight = 20.sp,
         letterSpacing = 0.5.sp,
         textAlign = TextAlign.Center
-    )
+    ),
 
-)
+    labelLarge = TextStyle(
+        fontFamily = FontFamily.Monospace,
+        fontWeight = FontWeight.Medium,
+        fontSize = 20.sp,
+        lineHeight = 20.sp,
+        letterSpacing = 0.5.sp,
+        textAlign = TextAlign.Center
+
+))

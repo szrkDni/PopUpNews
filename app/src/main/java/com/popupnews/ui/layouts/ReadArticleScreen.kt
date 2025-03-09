@@ -40,22 +40,25 @@ fun ReadArticleScreen(readable : ReadableArticle, urlToImg: String,  onBackClick
    Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(20.dp)
+            .padding(20.dp),
+       horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        PageTitle(title = readable.title, fontSize = 25.sp)
 
         Image(
             painter = rememberAsyncImagePainter(urlToImg),
             contentDescription = "article image",
             modifier = Modifier.padding(0.dp,0.dp,0.dp,10.dp).clip(RoundedCornerShape(16.dp)))
 
+       PageTitle(title = readable.title, fontSize = 25.sp)
+
         OutlinedCard(
             modifier = Modifier
                 .fillMaxHeight()
                 .verticalScroll(rememberScrollState()),
             border = BorderStroke(4.dp, Color.Black)
+
         ) {
-            Text(text = readable.content, modifier = Modifier.padding(5.dp), textAlign = TextAlign.Center)
+            Text(text = readable.content, modifier = Modifier.padding(5.dp), textAlign = TextAlign.Center, style = MyTypography.labelLarge)
         }
 
 
